@@ -5,7 +5,23 @@
 </style>
 <script>
 	function decollage() {
-		$("p.exemple").addClass("allume").show("slow"); 
+		// symbole $ <=> fonction jQuery
+		
+		// $("selecteur CSS++") 
+		// Résultat : une collection 
+		// de références jQuery 
+		
+		// beaucoup de méthodes de la collection
+		// s'appliquent à TOUS les éléments 
+		// de la collection  
+		
+		// beaucoup de méthodes de la collection 
+		// renvoient comme résultat 
+		// la collection elle-même !!
+		// => permet de cascader les appels de méthode 
+		$(".exemple")
+			.addClass("allume")
+			.show("slow"); 
 	}
 </script>
 
