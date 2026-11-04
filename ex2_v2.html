@@ -23,7 +23,7 @@ var jComposantTA = $("<textarea>")
 			// Cf. événément keydown
 			// Il doit redevenir un P						
 			// Commment retrouver le contexte de l'événement ?
-			console.log(contexte);
+			// console.log(contexte);
 			if (contexte.key == "Enter") {
 				var contenu = $(this).val(); 
 				var jPClone = jComposantP
@@ -43,7 +43,7 @@ var jComposantP = $("<p>")
 		// ET le comportement associé 
 		
 		// Si pas en mode édition : ne rien faire 
-		if (! $("#contenu").hasClass("modeEdition")) return; 
+		// if (! $("#contenu").hasClass("modeEdition")) return; 
 		
 		// lors du click sur un P: 
 		// 1) récup. contenu du P
@@ -57,12 +57,36 @@ var jComposantP = $("<p>")
 		// jP.replaceWith(jTA)
 		
 		$(this).replaceWith(jTAClone);
-		console.log("click sur P");
+		console.log("(composant) click sur P");
 	}); 
+
 
 // Composants ///////////////////////////////////
 
+/// Gestionnaires associés au document 
 
+// TODO : définir des comportements sur 
+// - des objets existants
+// 	$(refSurObjets).click(...)
+
+// - de futurs objets similaires  
+
+// ==> $(document).on
+
+$(document).on("click","#contenu.modeEdition p", function(){
+		var contenu = $(this).html();
+		var jTAClone = jComposantTA
+										.clone(true)
+										.val(contenu);
+		$(this).replaceWith(jTAClone);
+		console.log("(document.on) click sur P");
+		
+		// TODO : les deux gestionnaires ne s'activent pas 
+		// ensemble alors qu'ils le devraient
+		// ===> A SUIVRE !!
+	});
+
+/// 
 
 	function toggleMode() {
 		// afficher/cacher le #contenu 
