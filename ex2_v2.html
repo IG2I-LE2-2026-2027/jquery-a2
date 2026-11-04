@@ -1,6 +1,15 @@
 <script src="jquery.js"></script>
 <style>
 .controle {display:none;}
+
+#contenu p {
+	padding:2px;
+}
+
+#contenu.modeEdition p:hover {
+	cursor: pointer;
+	border : 1px solid black;
+}
 </style>
 <script>
 
@@ -16,8 +25,10 @@ var jComposantP = $("<p>")
 	function toggleMode() {
 		// afficher/cacher le #contenu 
 		$(".controle").toggle();
+		$("#contenu").toggleClass("modeEdition");
 
-		if ($("input[value='Passer en Mode Edition']").length) 
+		//if ($("input[value='Passer en Mode Edition']").length) 
+		if ($("#contenu").hasClass("modeEdition"))
 			$("input[value='Passer en Mode Edition']").val("Quitter le Mode Edition");
 		else		
 			$("input[value='Quitter le Mode Edition']").val("Passer en Mode Edition");
@@ -50,6 +61,9 @@ function addP(refBtnPlus) {
 </script>
 
 <body>
+
+	<div class="controle"> Mode Edition </div>
+
 	<input type="button" onclick="toggleMode();" value="Passer en Mode Edition"/>
 	
 	<input type="text" class="controle" />
