@@ -36,7 +36,8 @@ var jComposantTA = $("<textarea>")
 
 
 var jComposantP = $("<p>")
-	.html("Nouveau")
+	.html("Nouveau");
+/*
 	.click(function(){
 		// unité de lieu : au même endroit 
 		// on voit : la nature de l'événement: click
@@ -59,7 +60,7 @@ var jComposantP = $("<p>")
 		$(this).replaceWith(jTAClone);
 		console.log("(composant) click sur P");
 	}); 
-
+*/
 
 // Composants ///////////////////////////////////
 
@@ -73,11 +74,22 @@ var jComposantP = $("<p>")
 
 // ==> $(document).on
 
+$(document).on("mouseover","*", function(){
+	var meta = $(this).data(); 
+	if (! $.isEmptyObject(meta)) console.log(meta);
+});
+
 $(document).on("click","#contenu.modeEdition p", function(){
 		var contenu = $(this).html();
 		var jTAClone = jComposantTA
 										.clone(true)
-										.val(contenu);
+										.val(contenu)
+										.data({
+											contenuInitial : contenu, 
+											cle : "valeur"
+										}); 
+										//.data("contenuInitial", contenu);
+										
 		$(this).replaceWith(jTAClone);
 		console.log("(document.on) click sur P");
 		
@@ -146,4 +158,4 @@ function addP(refBtnPlus) {
 	<input type="button" value="+" class="controle" onclick="addP(this);"/>
 </body>
 
-
+Nouveau
