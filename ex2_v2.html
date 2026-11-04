@@ -1,31 +1,40 @@
 <script src="jquery.js"></script>
 <style>
+.controle {display:none;}
 </style>
 <script>
 
 // TODO : à mettre à jour 
-	function toggleShow() {
+	function toggleMode() {
 		// afficher/cacher le #contenu 
-		$("#contenu").toggle();
+		$(".controle").toggle();
 
-		// mettre à jour le label du bouton 
-		
-		// Alternatives : utiliser une variable 
-		// if (!$("#contenu").is(":visible")) 
-		
-		// tester l'existence : récupérer la référence jquery et tester la taille de la collection 
-		if ($("input[value='Cacher']").length) 
-			$("input[value='Cacher']").val("Afficher");
+		if ($("input[value='Passer en Mode Edition']").length) 
+			$("input[value='Passer en Mode Edition']").val("Quitter le Mode Edition");
 		else		
-			$("input[value='Afficher']").val("Cacher");
+			$("input[value='Quitter le Mode Edition']").val("Passer en Mode Edition");
 	}
 	
-function foo(refJS) {
+function addP(refBtnPlus) {
 	// récupérer une référence jQuery vers le bouton + cliqué : 
 	// ==> $(refJS)
+	var jBtnPlus = $(refBtnPlus)
+	var contenu = jBtnPlus
+									.prev()	// élément qui précède
+									.val(); // contenu d'un champ de form. 
+	console.log("Paragraphe à créer : " + contenu);
 	
-	// récupérer le contenu du champ texte situé avant : 
-	// .prev()
+	// console.log($("input[value='+']").index(refBtnPlus));
+	// console.log($("input[value='+']").index(jBtnPlus));
+	
+	if ($("input[value='+']").index(refBtnPlus) == 0) {
+		// 0 <=> haut 
+		$("#contenu").prepend("<p>" + contenu + "</p>");
+	} else {
+		// ! 0 <=> bas 
+		$("#contenu").append("<p>" + contenu + "</p>");
+	}
+	
 	
 	// indice d'un élément cliqué dans une structure comportant plusieurs éléments 
 	// $("input[value='+']").index(refBoutonClique)
@@ -37,20 +46,20 @@ function foo(refJS) {
 </script>
 
 <body>
-	<input type="button" onclick="toggleShow();" value="Passer en Mode Edition"/>
+	<input type="button" onclick="toggleMode();" value="Passer en Mode Edition"/>
 	
 	<input type="text" class="controle" />
-	<input type="button" value="+" class="controle" onclick="foo(this);"/>
+	<input type="button" value="+" class="controle" onclick="addP(this);"/>
 	
 	<div id="contenu">
 		<p>p1</p>
 		<p>p2</p>
 		<p>p3</p>
 	</div>
-	<input type="button" onclick="toggleShow();" value="Passer en Mode Edition"/>
+	<input type="button" onclick="toggleMode();" value="Passer en Mode Edition"/>
 	
 		<input type="text" class="controle"/>
-	<input type="button" value="+" class="controle" onclick="foo(this);"/>
+	<input type="button" value="+" class="controle" onclick="addP(this);"/>
 </body>
 
 
