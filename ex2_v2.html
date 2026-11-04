@@ -6,6 +6,7 @@
 }
 #contenu p {
 	padding:2px;
+	border-left:3px solid black;
 }
 
 #contenu.modeEdition p:hover {
@@ -16,10 +17,22 @@
 <script>
 
 // Composants ///////////////////////////////////
-var jComposantTA = $("<textarea>"); 
-// Son comportement : lors de l'appui sur ENTREE
-// Cf. événément keydown
-// Il doit redevenir un P
+var jComposantTA = $("<textarea>")
+										.keydown(function(contexte){
+			// Son comportement : lors de l'appui sur ENTREE
+			// Cf. événément keydown
+			// Il doit redevenir un P						
+			// Commment retrouver le contexte de l'événement ?
+			console.log(contexte);
+			if (contexte.key == "Enter") {
+				var contenu = $(this).val(); 
+				var jPClone = jComposantP
+												.clone(true)
+												.html(contenu);
+				$(this).replaceWith(jPClone);
+			}				
+		}); 
+
 
 
 var jComposantP = $("<p>")
@@ -28,6 +41,9 @@ var jComposantP = $("<p>")
 		// unité de lieu : au même endroit 
 		// on voit : la nature de l'événement: click
 		// ET le comportement associé 
+		
+		// Si pas en mode édition : ne rien faire 
+		if (! $("#contenu").hasClass("modeEdition")) return; 
 		
 		// lors du click sur un P: 
 		// 1) récup. contenu du P
@@ -72,15 +88,15 @@ function addP(refBtnPlus) {
 	// console.log($("input[value='+']").index(refBtnPlus));
 	// console.log($("input[value='+']").index(jBtnPlus));
 	
-	var jP = jComposantP.clone(true);
-	if (contenu != "") jP.html(contenu);
+	var jPClone = jComposantP.clone(true);
+	if (contenu != "") jPClone.html(contenu);
 	
 	if ($("input[value='+']").index(refBtnPlus) == 0) {
 		// 0 <=> haut 
-		$("#contenu").prepend(jP);
+		$("#contenu").prepend(jPClone);
 	} else {
 		// ! 0 <=> bas 
-		$("#contenu").append(jP);
+		$("#contenu").append(jPClone);
 	}
 
 }
