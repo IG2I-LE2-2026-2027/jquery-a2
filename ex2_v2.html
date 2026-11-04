@@ -4,7 +4,15 @@
 </style>
 <script>
 
-// TODO : à mettre à jour 
+// Composants ///////////////////////////////////
+
+var jComposantP = $("<p>")
+										.html("Nouveau"); 
+
+// Composants ///////////////////////////////////
+
+
+
 	function toggleMode() {
 		// afficher/cacher le #contenu 
 		$(".controle").toggle();
@@ -27,20 +35,16 @@ function addP(refBtnPlus) {
 	// console.log($("input[value='+']").index(refBtnPlus));
 	// console.log($("input[value='+']").index(jBtnPlus));
 	
+	var jP = jComposantP.clone();
+	if (contenu != "") jP.html(contenu);
+	
 	if ($("input[value='+']").index(refBtnPlus) == 0) {
 		// 0 <=> haut 
-		$("#contenu").prepend("<p>" + contenu + "</p>");
+		$("#contenu").prepend(jP);
 	} else {
 		// ! 0 <=> bas 
-		$("#contenu").append("<p>" + contenu + "</p>");
+		$("#contenu").append(jP);
 	}
-	
-	
-	// indice d'un élément cliqué dans une structure comportant plusieurs éléments 
-	// $("input[value='+']").index(refBoutonClique)
-
-	// ajouter à l'intérieur au début / à la fin 
-	// .prepend() .append() 
 
 }
 </script>
