@@ -1,7 +1,9 @@
 <script src="jquery.js"></script>
 <style>
 .controle {display:none;}
-
+#contenu textarea {
+	display:block;
+}
 #contenu p {
 	padding:2px;
 }
@@ -14,6 +16,11 @@
 <script>
 
 // Composants ///////////////////////////////////
+var jComposantTA = $("<textarea>"); 
+// Son comportement : lors de l'appui sur ENTREE
+// Cf. événément keydown
+// Il doit redevenir un P
+
 
 var jComposantP = $("<p>")
 	.html("Nouveau")
@@ -24,10 +31,16 @@ var jComposantP = $("<p>")
 		
 		// lors du click sur un P: 
 		// 1) récup. contenu du P
+		var contenu = $(this).html();
 		// Référence jquery vers l'élément cible de l'événement : $(this)
 		// 2) créer un composant Textarea avec le même contenu 
+		var jTAClone = jComposantTA
+										.clone(true)
+										.val(contenu);
 		// 3) remplacer le P. par le Textarea
 		// jP.replaceWith(jTA)
+		
+		$(this).replaceWith(jTAClone);
 		console.log("click sur P");
 	}); 
 
