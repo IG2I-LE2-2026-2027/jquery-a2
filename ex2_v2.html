@@ -36,8 +36,7 @@ var jComposantTA = $("<textarea>")
 
 
 var jComposantP = $("<p>")
-	.html("Nouveau");
-/*
+	.html("Nouveau")
 	.click(function(){
 		// unité de lieu : au même endroit 
 		// on voit : la nature de l'événement: click
@@ -45,6 +44,10 @@ var jComposantP = $("<p>")
 		
 		// Si pas en mode édition : ne rien faire 
 		// if (! $("#contenu").hasClass("modeEdition")) return; 
+		
+		console.log("(composant) click sur P");
+		
+		/* // TRAITE PAR LE DOC.ON !
 		
 		// lors du click sur un P: 
 		// 1) récup. contenu du P
@@ -58,9 +61,9 @@ var jComposantP = $("<p>")
 		// jP.replaceWith(jTA)
 		
 		$(this).replaceWith(jTAClone);
-		console.log("(composant) click sur P");
+		*/
 	}); 
-*/
+
 
 // Composants ///////////////////////////////////
 
@@ -80,6 +83,7 @@ $(document).on("mouseover","*", function(){
 });
 
 $(document).on("click","#contenu.modeEdition p", function(){
+		console.log("(document.on) click sur P");
 		var contenu = $(this).html();
 		var jTAClone = jComposantTA
 										.clone(true)
@@ -91,11 +95,19 @@ $(document).on("click","#contenu.modeEdition p", function(){
 										//.data("contenuInitial", contenu);
 										
 		$(this).replaceWith(jTAClone);
-		console.log("(document.on) click sur P");
 		
-		// TODO : les deux gestionnaires ne s'activent pas 
+/*
+		// NB : Les deux gestionnaires ne s'activent pas 
 		// ensemble alors qu'ils le devraient
-		// ===> A SUIVRE !!
+		// Le problème est que le premier gestionnaire détruit 
+		// le P cliqué, ce qui arrête la propagation
+
+Si l'élément cible reçoit l'événement, exécute son premier écouteur, et que ce code le supprime du DOM :
+• Les autres écouteurs attachés au même élément s'exécutent quand même. Le navigateur conserve une référence temporaire en mémoire pour finir de vider la file d'attente de cet élément.
+• Le bouillonnement (bubbling) dépend du navigateur et de la méthode de suppression, mais généralement, comme l'élément n'est plus attaché au DOM, l'événement ne sait plus vers quel parent remonter. La propagation s'arrête là.
+*/		
+		
+		
 	});
 
 /// 
