@@ -16,7 +16,20 @@
 // Composants ///////////////////////////////////
 
 var jComposantP = $("<p>")
-										.html("Nouveau"); 
+	.html("Nouveau")
+	.click(function(){
+		// unité de lieu : au même endroit 
+		// on voit : la nature de l'événement: click
+		// ET le comportement associé 
+		
+		// lors du click sur un P: 
+		// 1) récup. contenu du P
+		// Référence jquery vers l'élément cible de l'événement : $(this)
+		// 2) créer un composant Textarea avec le même contenu 
+		// 3) remplacer le P. par le Textarea
+		// jP.replaceWith(jTA)
+		console.log("click sur P");
+	}); 
 
 // Composants ///////////////////////////////////
 
@@ -46,7 +59,7 @@ function addP(refBtnPlus) {
 	// console.log($("input[value='+']").index(refBtnPlus));
 	// console.log($("input[value='+']").index(jBtnPlus));
 	
-	var jP = jComposantP.clone();
+	var jP = jComposantP.clone(true);
 	if (contenu != "") jP.html(contenu);
 	
 	if ($("input[value='+']").index(refBtnPlus) == 0) {
